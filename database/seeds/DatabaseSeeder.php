@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(ItemTableSeeder::class); //追記
+        Model::unguard();
+        $this->call(ItemTableSeeder::class); //追記 
+        
+        DB::table('items')->truncate();
+        $this->call('ItemTableSeeder');
+        Model::reguard();
     }
 }
