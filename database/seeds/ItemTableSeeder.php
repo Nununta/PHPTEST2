@@ -12,6 +12,7 @@ class ItemTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         DB::table('items')->truncate(); //2回目実行の際にシーダー情報をクリア
         DB::table('items')->insert([
