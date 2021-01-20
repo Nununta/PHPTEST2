@@ -47,7 +47,7 @@ class ItemTableSeeder extends Seeder
             'image' => 'car.jpg',
         ]);
 
-    
+        Model::reguard();
 
     }
 }
