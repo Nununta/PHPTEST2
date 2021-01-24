@@ -11,16 +11,21 @@
 |
 */
 
-Route::get('/', 'ShopController@index');
-Route::get('/mycart', 'ShopController@myCart')->middleware('auth');
-Route::post('/mycart', 'ShopController@addMycart');//追記
+
+Route::group(['middleware' => 'auth'], function() {
+    Route::get('/index', 'ShopController@index');
+    Route::get('/mycart', 'ShopController@myCart');
+    Route::post('/mycart', 'ShopController@addMycart');//追記
+});
+
+
 
 
 
 Route::group(['prefix' => 'admin'], function() {
-    Route::get('points/create', 'Admin\PointsController@add');
+    Route::get('points/create', 'Admin\PointsController@add')->middleware('auth');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');

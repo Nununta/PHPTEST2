@@ -11,11 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
         $this->call(ItemTableSeeder::class); //追記 
-        
-        DB::table('items')->truncate();
-        $this->call('ItemTableSeeder');
-        Model::reguard();
+        $this->call(UsersTableSeeder::class); //追記 
     }
 }
