@@ -17,15 +17,27 @@
                    @foreach($my_carts as $mycart)
                      <h1>{{$mycart->item->name}}　                             
                      {{ number_format($mycart->item->point)}}ポイント</h1> <br>
-                     <img src="/image/{{$mycart->item->image}}" alt="" class="incart_cart" >
+                     <img src="/image/{{$mycart->item->image}}" alt="" class="incart_cart" >                     
                      <br>
+                     <h2>注文数{{$mycart->orders}}</h2>
                
-               <form action="/cartdelete" method="post">
-                   @csrf
-                   <input type="hidden" name="item_id" value="{{ $mycart->item->id }}">
-                   <input type="submit" value="カートから削除する">
-               </form>
+                        <form action="/cartdelete" method="post">
+                            @csrf
+                            <input type="hidden" name="item_id" value="{{ $mycart->item->id }}">
+                            <input type="submit" value="カートから削除する">
+                        </form>
                    @endforeach
+                   {{-- 追加 --}}
+                   <div class="text-center p-2">
+                       個数：{{$order}}個<br>
+                       <p style="font-size:1.2em; font-weight:bold;">合計金額:{{number_format($sum)}}ポイント</p>  
+                   </div>  
+                   <form action="/checkout" method="POST">
+                       @csrf
+                       <button type="submit" class="btn btn-danger btn-lg text-center buy-btn" >購入する</button>
+                   </form>
+
+                    {{-- ここまで --}}
 
          
 

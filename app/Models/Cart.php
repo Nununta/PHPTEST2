@@ -14,7 +14,25 @@ class Cart extends Model
     public function showCart()
     {
         $user_id = Auth::id();
-        return $this->where('user_id',$user_id)->get();
+        $data['my_carts'] = $this->where('user_id',$user_id)->get();
+        $data['item_orders'] = $data['my_carts']->where('item_id');//追記
+        $data['count']=0;
+        $data['sum']=0;
+        
+        foreach($data['my_carts'] as $my_cart){
+            $data['order'] = $this->where('user_id',$user_id)->sum('orders');
+            $data['sum'] += $my_cart->item->point;
+        }
+
+        foreach($data['item_orders'] as $item_order){
+            $data['test'] += $item_order->item->point;//追記
+        }
+        dd($data['test']);//→エラー発生
+      
+
+
+    
+        return $data;
     }
     
     public function addCart($item_id,$orders)
@@ -32,11 +50,26 @@ class Cart extends Model
         return $message;
     }
 
+    public function deleteCart($item_id)
+{
+       $user_id = Auth::id(); 
+       $delete = $this->where('user_id', $user_id)->where('item_id',$item_id)->delete();
+       
+       if($delete > 0){
+           $message = 'カートから一つの商品を削除しました';
+       }else{
+           $message = '削除に失敗しました';
+       }
+       return $message;
+}
+
 
     public function item()
     {
         return $this->belongsTo('\App\Models\Item');
     }
+
+    
 
 }
 
