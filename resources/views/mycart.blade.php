@@ -20,7 +20,6 @@
                      <img src="/image/{{$mycart->item->image}}" alt="" class="incart_cart" >                     
                      <br>
                      <h2>注文数{{$mycart->orders}}</h2>
-               
                         <form action="/cartdelete" method="post">
                             @csrf
                             <input type="hidden" name="item_id" value="{{ $mycart->item->id }}">
@@ -29,8 +28,8 @@
                    @endforeach
                    {{-- 追加 --}}
                    <div class="text-center p-2">
-                       個数：{{$order}}個<br>
-                       <p style="font-size:1.2em; font-weight:bold;">合計金額:{{number_format($sum)}}ポイント</p>  
+                       <h2>個数：{{$total_count}}個</h2>
+                       <h2>合計金額:{{$total_price}}ポイント</h2>
                    </div>  
                    <form action="/checkout" method="POST">
                        @csrf
