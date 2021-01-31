@@ -14,14 +14,13 @@ class Cart extends Model
     public function showCart()
     {
         $user_id = Auth::id();
-        $data['my_carts'] = $this->where('user_id',$user_id)->get();
-        $data['item_orders'] = $data['my_carts']->where('item_id');//追記
-        $data['count']=0;
+        $data['my_carts'] = $this->where('user_id',$user_id)->get();//ログインユーザがカートに入れた商品のレコードを抽出
+        $data['order'] = $data['my_carts']->sum('orders');//ユーザがカートに入れた商品の合計数
         $data['sum']=0;
         
        
-        $data['order'] = $this->where('user_id',$user_id)->sum('orders');
-    
+       
+
         return $data;
     }
     
