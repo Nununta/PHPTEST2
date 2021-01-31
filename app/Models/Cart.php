@@ -19,17 +19,8 @@ class Cart extends Model
         $data['count']=0;
         $data['sum']=0;
         
-        foreach($data['my_carts'] as $my_cart){
-            $data['order'] = $this->where('user_id',$user_id)->sum('orders');
-        }
-
-        foreach($data['item_orders'] as $item_order){
-            $data['test'] += $item_order->item->point;//追記
-        }
-        dd($data['test']);//→エラー発生
-      
-
-
+       
+        $data['order'] = $this->where('user_id',$user_id)->sum('orders');
     
         return $data;
     }
