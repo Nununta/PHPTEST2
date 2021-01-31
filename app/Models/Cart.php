@@ -21,7 +21,6 @@ class Cart extends Model
         
         foreach($data['my_carts'] as $my_cart){
             $data['order'] = $this->where('user_id',$user_id)->sum('orders');
-            $data['sum'] += $my_cart->item->point;
         }
 
         foreach($data['item_orders'] as $item_order){
