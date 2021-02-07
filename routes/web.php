@@ -16,7 +16,12 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/index', 'ShopController@index');
     Route::get('/mycart', 'ShopController@myCart');
     Route::post('/mycart', 'ShopController@addMycart');//追記
-    Route::POST('/cartdelete','ShopController@deleteCart');
+    Route::post('/cartdelete','ShopController@deleteCart');
+    Route::post('/checkout', 'ShopController@checkout');
+    Route::get('/checkout', 'ShopController@index');
+    Route::get('/pointup', 'ShopController@point');
+    Route::post('/pointup', 'ShopController@pointup');
+    
 });
 
 

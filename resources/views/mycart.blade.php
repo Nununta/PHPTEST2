@@ -13,7 +13,7 @@
            <div class="">
                     <p class="text-center">{{ $message ?? '' }}</p><br>
      
-
+                @if($my_carts->isNotEmpty()) 
                    @foreach($my_carts as $mycart)
                      <h1>{{$mycart->item->name}}　                             
                      {{ number_format($mycart->item->point)}}ポイント</h1> <br>
@@ -35,8 +35,9 @@
                        @csrf
                        <button type="submit" class="btn btn-danger btn-lg text-center buy-btn" >購入する</button>
                    </form>
-
-                    {{-- ここまで --}}
+                @else
+                   <p class="text-center">カートはからっぽです。</p>
+                @endif
 
          
 

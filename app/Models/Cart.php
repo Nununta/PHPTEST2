@@ -15,7 +15,6 @@ class Cart extends Model
     {
         $user_id = Auth::id();
         $data['my_carts'] = $this->where('user_id',$user_id)->get();
- 
         $data['count']=0;
         $data['sum']=0;
         $data['total_count']=0;
@@ -27,14 +26,14 @@ class Cart extends Model
             $data['total_count'] += $my_cart->orders; 
             $data['sum'] += $my_cart->item->point;
         }
-        dump($data['total_count']);
+        // dump($data['total_count']);
         return $data;
     }
     
-    public function addCart($item_id,$orders)
+    public function addCart($item_id,$order_count)
     {
         $user_id = Auth::id(); 
-        $cart_add_info = Cart::firstOrCreate(['item_id' => $item_id,'user_id' => $user_id,'orders' => $orders]);
+        $cart_add_info = Cart::firstOrCreate(['item_id' => $item_id,'user_id' => $user_id,'orders' => $order_count]);
  
         if($cart_add_info->wasRecentlyCreated){
             $message = 'カートに追加しました';
@@ -57,6 +56,14 @@ class Cart extends Model
            $message = '削除に失敗しました';
        }
        return $message;
+}
+
+public function checkoutCart()
+{
+    $user_id = Auth::id(); 
+    $checkout_items=$this->where('user_id', $user_id)->get();
+    $this->where('user_id', $user_id)->delete();
+    return $checkout_items;     
 }
 
 

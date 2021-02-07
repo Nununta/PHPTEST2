@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<p class="text-center">{{ session('message') ?? '' }}</p><br>
 <!-- <div class="container-fluid"> -->
    <!-- <div class="">
        <div class="mx-auto" style="max-width:1200px"> -->
@@ -22,7 +23,7 @@
                                 <form action="mycart" method="post">
                                     @csrf
                                     <input type="hidden" name="item_id" value="{{ $item->id }}">
-                                    <input type="text" name="orders" value="0"> 
+                                    <input type="text" name="orders" value="0">     
                                     <input type="submit" value="カートに入れる">
                                 </form>
                         </div>
